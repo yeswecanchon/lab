@@ -1,0 +1,26 @@
+md-toolbar{
+    margin: 0px;
+    background-color: #fafafa;    
+}
+
+md-card{
+    padding: 0 0 30px 0;
+}
+
+md-icon{
+    cursor: pointer;
+}
+
+a, a:hover, a:focus {
+    margin: 0 5px 0 5px;
+    font-size: 16px;
+    color: #4e8ee3;
+    font-family: 'corporate_smedium';
+    i {
+        margin: 0 0 5px 0;
+    }
+}
+
+.isniCheck{
+    color: #1cd158;
+}

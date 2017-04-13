@@ -1,0 +1,15 @@
+<h2 md-dialog-title>Modifier le statut de la demande</h2>
+<md-dialog-content>
+  <md-chip-list *ngIf="statut.value != statutIni.value">
+    <span>Passer le statut de</span>
+    <md-chip selected="true" class="chip-primary">{{statutIni.libelle}}</md-chip>
+    <span>à</span>
+    <md-chip selected="true" class="chip-primary">{{statut.libelle}}</md-chip>
+    <span>?</span>
+  </md-chip-list>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-raised-button md-dialog-close>Fermer</button>
+  <div class="spacer app-mr"></div>
+  <button [disabled]="statut.value == statutIni.value" md-raised-button color="primary" (click)="dialogEditStatut.close(statut)">Valider</button>
+</md-dialog-actions>

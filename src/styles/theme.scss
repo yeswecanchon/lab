@@ -1,0 +1,88 @@
+@import './_variables.scss';
+@import '~@angular/material/theming';
+
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
+@import './_ngx-datatable-material-override.css';
+
+@include mat-core();
+
+$bnf-mat-blue: (
+  50: #e3f2fd,
+  100: #bbdefb,
+  200: #90caf9,
+  300: #64b5f6,
+  400: #42a5f5,
+  500: #2196f3,
+  600: #1e88e5,
+  700: #1976d2,
+  800: #1565c0,
+  900: #0d47a1,
+  A100: #82b1ff,
+  A200: $bnf-primary, //override #448AFF with BnF app main color
+  A400: #2979ff,
+  A700: #2962ff,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: white,
+    600: white,
+    700: white,
+    800: $white-87-opacity,
+    900: $white-87-opacity,
+    A100: $black-87-opacity,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$bnf-app-primary: mat-palette($bnf-mat-blue, A200);
+$bnf-app-accent:  mat-palette($mat-orange, A200);
+$bnf-app-warn:    mat-palette($mat-red, 600);
+
+$bnf-app-theme: mat-light-theme($bnf-app-primary, $bnf-app-accent, $bnf-app-warn);
+@include angular-material-theme($bnf-app-theme);
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/assets/fonts/material/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url(/assets/fonts/material/MaterialIcons-Regular.woff2) format('woff2'),
+       url(/assets/fonts/material/MaterialIcons-Regular.woff) format('woff'),
+       url(/assets/fonts/material/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+.mat-list-item-content{
+    overflow: visible;
+}

@@ -1,0 +1,10 @@
+<md-card>
+  <md-tab-group>
+    <md-tab label="Données catalogue" *ngIf="demande?.statut?.value != '3000' && demande?.statut?.value != '4000' && demande?.statut?.value != '2400'">
+      <app-demande-tabs-donnees-catalogue [demande]=demande (onDemandeChange)="_onDemandeChange($event)"></app-demande-tabs-donnees-catalogue>
+    </md-tab>
+    <md-tab label="Notice d'autorité">
+      <app-demande-tabs-notice-autorite [demande]=demande (onDemandeChange)="_onDemandeChange($event)"></app-demande-tabs-notice-autorite>
+    </md-tab>
+  </md-tab-group>
+</md-card>

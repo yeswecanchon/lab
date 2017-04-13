@@ -1,0 +1,24 @@
+<div class="route">
+  <div class=route-title>Mes préférences</div>
+  <md-card fxLayout="column" fxLayoutAlign="space-between start">
+    <md-card-title>Priorités affichées par défaut :</md-card-title>
+    <div fxLayout="column" fxLayoutAlign="space-around" class="app-mb">
+      <md-slide-toggle [disabled]=true (change)="allSelectedPrioriteChange($event)" [checked]="allSelectedPriorite" color=accent>{{allSelectedPriorite ? "Tout désélectionner" : "Tout sélectionner"}}</md-slide-toggle>
+      <md-slide-toggle [disabled]=true *ngFor="let priorite of priorites" (change)="toogleChangePriorite($event, priorite.value)" [checked]="priorite.etat"
+        color="primary">{{priorite.libelle}}</md-slide-toggle>
+    </div>
+    <md-card-title>Statuts affichés par défaut :</md-card-title>
+    <div fxLayout="column" fxLayoutAlign="space-around" class="app-mb">
+      <md-slide-toggle (change)="allSelectedStatutChange($event)" [checked]="allSelectedStatut" color=accent>{{allSelectedStatut ? "Tout désélectionner" : "Tout sélectionner"}}</md-slide-toggle>
+      <md-slide-toggle *ngFor="let statut of statuts" (change)="toogleChangeStatut($event, statut.value)" [checked]="statut.etat"
+        color="primary">{{statut.libelle}}</md-slide-toggle>
+    </div>
+    <md-select [(ngModel)]="properties.isni_demandeList_pageLength" placeholder="Nombre de demande par page">
+      <md-option *ngFor="let pageLength of ['10', '50', '100']" [value]="pageLength">{{ pageLength }}</md-option>
+    </md-select>
+    <md-input-container class="app-mt">
+      <input [disabled]=true mdInput name="nbJour" placeholder="Nombre de jours">
+    </md-input-container>
+    <button md-raised-button color="primary" (click)="save(properties)" mdTooltip="Sauvegarde l'ensemble des préférences">Sauvegarder</button>
+  </md-card>
+</div>

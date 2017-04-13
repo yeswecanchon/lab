@@ -1,0 +1,41 @@
+.settings/
+.project
+.springBeans
+.classpath
+/.idea
+.c9/
+*.launch
+
+WebContent/
+target/
+WEB-INF/
+META-INF/
+phantomjsdriver.log
+*.tern-project
+webapp
+
+# compiled output
+/tmp
+
+# dependencies
+node_modules
+
+# IDE - VSCode
+.vscode/*
+
+# misc
+/.sass-cache
+/connect.lock
+coverage
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+#System Files
+.DS_Store
+Thumbs.db

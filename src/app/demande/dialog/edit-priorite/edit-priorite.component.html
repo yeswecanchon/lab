@@ -1,0 +1,23 @@
+<h2 md-dialog-title>
+  Modifier la priorité de la demande
+  <md-chip-list *ngIf="priorite.value != prioriteIni.value">
+    <span>de</span>
+    <md-chip selected="true" [ngClass]="'chip-' + prioriteIni.libelle">{{prioriteIni.libelle}}</md-chip>
+    <span>à</span>
+    <md-chip selected="true" [ngClass]="'chip-' + priorite.libelle">{{priorite.libelle}}</md-chip>
+  </md-chip-list>
+</h2>
+<md-dialog-content fxLayout=column>
+  <md-select [(ngModel)]="priorite" (change)="onPrioriteChange()" placeholder="Nouvelle priorité" name="priorite">
+    <md-option *ngFor="let priorite of priorites" [value]="priorite">{{priorite.libelle}}</md-option>
+  </md-select>
+  <md-input-container *ngIf="priorite.value != prioriteIni.value" class="app-mt">
+    <textarea mdInput [(ngModel)]="commentaire" placeholder="Commentaire" name="commentaire">
+    </textarea>
+  </md-input-container>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-raised-button md-dialog-close>Fermer</button>
+  <div class="spacer app-mr"></div>
+  <button [disabled]="priorite.value == prioriteIni.value" md-raised-button color="primary" (click)="onValiderClick()">Valider</button>
+</md-dialog-actions>

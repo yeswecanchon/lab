@@ -1,0 +1,32 @@
+.app-toolbar{
+  padding: 0 16px 0 0;
+  
+  button,  a{
+    margin: 0 5px 0 5px;
+  }
+
+  .logo-bnf-ct{
+    width: 120px;
+    background-color: #1e63be;
+    height: 100%;
+
+    .logo-bnf{
+      display: block;
+      margin: auto;
+      padding-top: 15px;
+    }
+  } 
+}
+    
+.app-sidenav {
+  padding: 10px;
+  min-width: 200px;
+}
+
+.app-footer-action {
+  display: inline-block;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 50;
+}

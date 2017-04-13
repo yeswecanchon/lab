@@ -1,0 +1,41 @@
+<div *ngIf="demande?.statut?.value !== '3000' && demande?.statut?.value !== '4000' && demande?.statut?.value !== '2400'"
+  fxLayout="column" class="notice">
+  <md-card-content>
+    <md-toolbar>
+      <button md-raised-button (click)="onPEPFrancaiseClick()">PEP Française</button>
+      <div class="app-ml"></div>
+      <button md-raised-button (click)="onPEPAutreClick()">PEP Autre</button>
+    </md-toolbar>
+    <div *ngFor="let zone of notice?.zone; let h = index">
+      <div fxLayout="row">
+        <span class="zone-code">{{zone.code}}</span>
+        <div fxLayout="column">
+          <div *ngFor="let souszone of zone.souszone; let i = index">
+            <div *ngIf="i === 0 || !zone.souszone[0].collapsed" fxLayout="row" fxLayoutWrap class="fieldRow">
+              <span *ngIf="souszone.code" class="souszone-code">{{souszone.code}}</span>
+              <div *ngFor="let concat of souszone.concat; let j = index">
+                <md-input-container class="field">
+                  <input mdInput required #input id="{{zone.code}}-{{i}}-{{j}}" [(ngModel)]="notice.zone[h].souszone[i].concat[j].value" [disabled]="concat.disabled">
+                </md-input-container>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="spacer"></div>
+        <div *ngIf="zone.souszone.length > 1">
+          <md-icon *ngIf="!zone.souszone[0].collapsed" (click)="zone.souszone[0].collapsed = true" mdTooltip="Masquer" color=primary>keyboard_arrow_down</md-icon>
+          <md-icon *ngIf="zone.souszone[0].collapsed" (click)="zone.souszone[0].collapsed = false" mdTooltip="Afficher" color=primary>keyboard_arrow_right</md-icon>
+        </div>
+      </div>
+    </div>
+  </md-card-content>
+  <md-card-actions fxFlexAlign="center">
+    <button md-raised-button color="primary" (click)="onCreerNoticeClick()">Créer la notice</button>
+  </md-card-actions>
+</div>
+<div *ngIf="demande?.statut?.value === '3000' || demande?.statut?.value === '4000' || demande?.statut?.value === '2400'">
+  <md-card-content>
+    <br>
+    <span class="texteNNA">{{demande?.texteNNA}}</span>
+  </md-card-content>
+</div>

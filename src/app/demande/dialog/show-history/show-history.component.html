@@ -1,0 +1,20 @@
+<h2 md-dialog-title>Historique de la demande</h2>
+<md-dialog-content fxLayout=column>
+  <md-list>
+    <md-list-item *ngFor="let historique of historiques">
+      <md-icon color=accent md-list-avatar>history</md-icon>
+      <ul md-line>
+        <li *ngFor="let detail of historique.details">
+          <strong>{{detail.valuation}}</strong>
+           : {{detail.valeurAvant || 'NULL'}} 
+          <strong>>></strong>
+           {{detail.valeurApres || 'NULL'}}
+        </li>
+      </ul>
+      <p md-line> {{historique.dateModification | date:'dd/MM/yyyy HH:mm - '}}{{ historique.responsable}}</p>
+    </md-list-item>
+  </md-list>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-raised-button md-dialog-close>Fermer</button>
+</md-dialog-actions>

@@ -1,0 +1,88 @@
+<div class="route">
+  <div class=route-title>Liste des demandes</div>
+  <md-sidenav-container>
+    <md-sidenav #search mode="side" opened="true">
+      <div>
+        <md-toolbar class="search-header" color="primary">
+          <span>Votre recherche</span>
+          <span class="spacer"></span>
+          <md-icon (click)="toggle()" mdTooltip="Masquer la recherche">keyboard_arrow_left</md-icon>
+        </md-toolbar>
+        <app-demande-list-search (onSearch)="onSearch($event)"></app-demande-list-search>
+      </div>
+    </md-sidenav>
+    <div class="demande-list app-ml" fxLayout="column">
+      <md-toolbar class="demande-list-toolbar">
+        <span class="demande-label app-mr">{{paging.count}} demandes :</span>
+        <a md-raised-button *ngFor="let statut of appService.statuts" (click)="onStatutClick(statut.value)">
+          <i [ngClass]="'statut-min-' + statut.value"></i> {{totalStatuts[statut.value]}} {{statut.libelle}}
+        </a>
+      </md-toolbar>
+
+      <md-toolbar class="demande-list-toolbar">
+        <button color="primary" md-mini-fab mdTooltip="Afficher/masquer la recherche" (click)="toggle()"><md-icon>search</md-icon></button>
+        <button color="primary" [disabled]=!selected.length md-mini-fab mdTooltip="Restaurer les demandes"><md-icon>reply</md-icon></button>
+        <button color="primary" [disabled]=!selected.length md-mini-fab mdTooltip="Annuler les demandes"><md-icon>close</md-icon></button>
+        <button color="primary" class="app-mr" md-mini-fab mdTooltip="Autres" [md-menu-trigger-for]="menuAction"><md-icon>more_vert</md-icon></button>
+        <md-menu #menuAction="mdMenu">
+          <button md-menu-item><md-icon>print</md-icon>Imprimer</button>
+          <button md-menu-item><md-icon>file_download</md-icon>Exporter</button>
+          <!--<button (click)="dev = !dev" md-menu-item><md-icon>whatshot</md-icon>DEV_DOOR</button>-->
+        </md-menu>
+        <span class="spacer"></span>
+        <div class="demande-list-param app-mr">
+          <md-select [(ngModel)]="paging.limit" (change)="onLimitChange($event)" placeholder="Demandes par page">
+            <md-option *ngFor="let limit of [10, 50, 100]" [value]="limit">{{ limit }}</md-option>
+          </md-select>
+        </div>
+        <div class="demande-list-param">
+          <md-select [(ngModel)]="display" (change)="onDisplayChange($event)" placeholder="Affichage">
+            <md-option *ngFor="let display of ['Complet', 'Simple']" [value]="display">{{ display }}</md-option>
+          </md-select>
+        </div>
+      </md-toolbar>
+
+      <ngx-datatable #demandeList class="material demandes" [rows]="demandes" [columns]="columns" [columnMode]="'force'" [selectionType]="'checkbox'"
+        [selected]="selected" [rowClass]="rowClass" [messages]="messages" [reorderable]=true [loadingIndicator]="loadingIndicator"
+        [headerHeight]="40" [rowHeight]="45" [footerHeight]="50" [externalSorting]="true" [externalPaging]="true" [offset]="paging.offset"
+        [limit]="paging.limit" [count]="paging.count" (sort)="onSort($event)" (page)="onPage($event)" (activate)="onActivate($event)"
+        (select)="onSelect($event)">
+      </ngx-datatable>
+
+      <ng-template #dateTpl let-value="value">
+        {{value | date:'dd/MM/yyyy'}}
+      </ng-template>
+
+      <ng-template #prioriteTpl let-value="value">
+        <md-chip selected="true" [ngClass]="'chip-' + value">{{value}}</md-chip>
+      </ng-template>
+
+      <ng-template #statutTpl let-value="value">
+        <div [ngClass]="'statut-' + value.value"></div>
+      </ng-template>
+
+      <ng-template #typeTpl let-value="value">
+        <md-icon *ngIf="value === 'PEP'" color=primary>account_circle</md-icon>
+        <md-icon *ngIf="value === 'ORG'" color=primary>home</md-icon>
+      </ng-template>
+
+      <ng-template #nomPrenomTpl let-value="value">
+        <span class="author">{{value}}</span>
+      </ng-template>
+
+      <ng-template #nbDeclaTpl let-row="row">
+        <span *ngIf="row.nbDecla <= 1">{{row.nbDecla}}</span>
+        <a *ngIf="row.nbDecla > 1" (click)="onNbDeclaClick(row.idDecla)">{{row.nbDecla}}</a>
+      </ng-template>
+
+      <ng-template #nnaTpl let-row="row">
+        <a href="{{appService.conf.baseUrlNotice}}/{{row.arkNna}}" target="_blank">{{row.nna}}</a>
+      </ng-template>
+
+      <ng-template #isniTpl let-row="row">
+        <a href="{{appService.conf.baseUrlISNI}}/{{row.isni}}" target="_blank">{{appUtilsService.formatIsni(row.isni)}}</a>
+      </ng-template>
+
+    </div>
+  </md-sidenav-container>
+</div>
