@@ -1,0 +1,41 @@
+md-chip{
+    margin: 3px !important;
+}
+
+.search-items {
+
+    padding: 15px 5px;
+    margin-bottom: 20px;
+
+    .search-item-title{
+        min-width: 85px;
+    }
+
+    md-list-item{
+        padding: 5px 0px;
+    }
+}
+
+
+.available-search-items{
+
+    padding: 15px 5px;
+    .affiner {
+        color: #525252;
+        font-family: 'corporate_slight';
+        font-size: 1.875em;
+        margin-left: 15px;
+        margin-bottom: 10px;
+    }
+    .available-search-item {
+        border-top: 3px dotted #d5dbe1;
+        padding: 15px 0;
+
+        .available-search-item-title {
+            min-width: 85px;
+        }
+    }
+    .available-search-long-chip-list {
+        padding: 25px 0;
+    }
+}

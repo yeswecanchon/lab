@@ -1,0 +1,13 @@
+<h2 md-dialog-title>Ajouter un commentaire</h2>
+<form [formGroup]="addCommentaireForm">
+  <md-dialog-content>
+    <md-input-container style="width: 500px;">
+      <textarea mdInput required #commentaire placeholder="Commentaire" name="commentaire" formControlName="commentaire"></textarea>
+    </md-input-container>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <button md-raised-button md-dialog-close>Fermer</button>
+    <div class="spacer app-mr"></div>
+    <button md-raised-button color="primary" (click)="dialogAddCommentaire.close(commentaire.value)" [disabled]="!addCommentaireForm.valid">Valider</button>
+  </md-dialog-actions>
+</form>

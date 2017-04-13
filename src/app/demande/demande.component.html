@@ -1,0 +1,174 @@
+<div class="route demande">
+  <md-toolbar class="navbar">
+    <a class="back-link" md-raised-button routerLink="/demande-list" routerLinkActive="active">
+      <i class="material-icons">arrow_back</i> Retour à la liste
+    </a>
+    <span class="spacer"></span>
+    <div *ngIf="demande?.nom">
+      <md-icon *ngIf="!nextDemandeHidden" (click)="onNextDemandeClick(false)" mdTooltip="Demande précédente" color=primary>navigate_before</md-icon>
+      <span class="title app-ml app-mr">{{demande.nom}}, {{demande.prenom}}</span>
+      <md-icon *ngIf="!nextDemandeHidden" (click)="onNextDemandeClick(true)" mdTooltip="Demande suivante" color=primary>navigate_next</md-icon>
+    </div>
+    <span class="spacer"></span>
+  </md-toolbar>
+
+  <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="column" fxFlex>
+    <div fxFlex=60 class="datas">
+      <div class="data" fxLayout="row">
+        <md-card fxFlex=70>
+          <md-card-title>Données de gestion de la demande ISNI
+            <md-icon (click)="onShowHistoryClick()" mdTooltip="Voir l'historique" color=primary>description</md-icon>
+          </md-card-title>
+          <div fxLayout="column">
+            <div fxLayout="row" class="box-ct">
+              <div fxFlex fxLayout="column" class="box">
+                <div fxLayout="row" class="item"><span fxFlex=50>ID Demande :</span><span class="item-value">{{demande?.idDemande}}</span></div>
+                <div fxLayout="row" class="item"><span fxFlex=50>Demandé le :</span><span class="item-value">{{demande?.dateCreation | date:'dd/MM/yyyy'}}</span></div>
+                <div fxLayout="row" class="item"><span fxFlex=50>Terminé le :</span><span class="item-value">{{demande?.dateReponse | date:'dd/MM/yyyy'}}</span></div>
+              </div>
+              <div fxFlex fxLayout="column" class="box box-border">
+                <div fxLayout="row" class="item"><span fxFlex=50>Expéditeur :</span><span class="item-value">{{demande?.nomExpediteur}}</span></div>
+                <div fxLayout="row" class="item"><span fxFlex=50>ID Expéditeur :</span><span class="item-value">{{demande?.idExpediteur}}</span></div>
+              </div>
+              <div fxFlex fxLayout="column" class="box box-border">
+                <div fxLayout="row" class="item">
+                  <span fxFlex=30>Statut :</span>
+                  <div [ngClass]="'statut-' + demande?.statut?.value" mdTooltip="{{demande?.statut?.libelle}}"></div>
+                  <md-icon *ngIf="demande?.statut?.value === '1000' || demande?.statut?.value === '2000' || demande?.statut?.value == '2600'"
+                    color=primary (click)="onEditStatutClick()" mdTooltip="Modifier le statut">mode_edit
+                  </md-icon>
+                </div>
+                <div fxLayout="row" class="item">
+                  <span fxFlex=30>Priorité :</span>
+                  <md-chip-list>
+                    <md-chip selected="true" [ngClass]="'chip-' + demande?.priorite?.libelle">{{demande?.priorite?.libelle}}</md-chip>
+                  </md-chip-list>
+                  <md-icon *ngIf="demande?.statut?.value !== '4000'" color=primary (click)="onEditPrioriteClick()" mdTooltip="Modifier la priorité">mode_edit</md-icon>
+                </div>
+              </div>
+            </div>
+            <div fxLayout="row" class="item box-footer">
+              <span>Commentaires</span>
+              <md-icon *ngIf="demande?.commentaires?.length" (click)="onEditCommentaireClick()" mdTooltip="Voir les commentaires" color=primary>description</md-icon>
+              <md-icon (click)="onAddCommentaireClick()" mdTooltip="Ajouter un commentaire" color=primary>mode_edit</md-icon>
+              <span class="spacer"></span>
+              <span *ngIf="demande?.commentaires?.length">
+                  {{demande.commentaires[0].dateDernModif | date:'dd/MM/yyyy | HH:mm | '}}
+                  {{demande.commentaires[0].nomUtilisateur}},
+                  {{demande.commentaires[0].commentaire}}
+                </span>
+            </div>
+          </div>
+        </md-card>
+        <md-card fxFlex=30>
+          <md-card-content fxLayout="column" class="nna-isni app-pb">
+            <div fxLayout="row" class="item">
+              <span fxFlex=20>NNA :</span>
+              <span class="item-value">{{demande?.nna}}</span>
+              <md-icon *ngIf="demande?.statut?.value !== '4000' && demande?.statut?.value !== '2400'" (click)="onEditNnaClick()" mdTooltip="Gérer NNA" color=primary>mode_edit</md-icon>
+            </div>
+            <div fxLayout="row" class="item">
+              <span fxFlex=20>ISNI :</span>
+              <span class="item-value">{{appUtilsService.formatIsni(demande?.isni)}}</span>
+              <md-icon *ngIf="demande?.statut?.value === '3000'" (click)="onSearchIsniClick()" mdTooltip="Vérifier la présence ISNI" color=primary>autorenew</md-icon>
+            </div>
+            <span class="spacer"></span>
+            <button *ngIf="demande?.statut?.value === '1000' || demande?.statut?.value === '2000' || demande?.statut?.value == '2600'"
+              (click)="onCancelDemandeClick()" md-raised-button color=primary class="cancel-demande">Annuler la demande</button>
+            <button *ngIf="demande?.statut?.value === '2400'" (click)="onRestoreDemandeClick()" md-raised-button color=primary class="cancel-demande">Restaurer la demande</button>
+          </md-card-content>
+        </md-card>
+      </div>
+      <md-card class="data">
+        <md-card-title fxLayout="row">Données auteur &nbsp;
+          <div [ngSwitch]=demande?.typeContributeurEnum?.libelle>
+            <md-icon *ngSwitchCase="'PEP'" md-tooltip="PEP Personne physique" color=primary>account_circle</md-icon>
+            <md-icon *ngSwitchCase="'ORG'" md-tooltip="ORG Personne morale" color=primary>home</md-icon>
+          </div>
+        </md-card-title>
+        <div fxLayout="row" class="box-ct">
+          <div fxFlex=25 fxLayout="column" class="box">
+            <div fxLayout="row" class="item"><span fxFlex=50>Auteur :</span>
+              <span class="item-value" *ngIf="demande?.nom">
+                {{demande.nom}},
+                {{demande.prenom}}
+              </span></div>
+            <div fxLayout="row" class="item"><span fxFlex=50>Pseudo :</span><span class="item-value">{{demande?.pseudonyme}}</span></div>
+            <div fxLayout="row" class="item"><span fxFlex=50>Fonction :</span><span class="item-value">{{demande?.fonction}}</span></div>
+            <div fxLayout="row" class="item"><span fxFlex=50>Date de naissance :</span><span class="item-value">{{demande?.dateNaissance}}</span></div>
+            <div fxLayout="row" class="item"><span fxFlex=50>Langue source :</span><span class="item-value">{{demande?.langueOriginale}}</span></div>
+            <div fxLayout="row" class="item"><span fxFlex=50>EAN du même auteur :</span><span class="item-value"><md-icon (click)="onShowEanClick()" mdTooltip="Voir les EAN liés" color=primary>loupe</md-icon></span></div>
+            <div fxLayout="row" class="item"><span fxFlex=50>Site web :</span><span class="item-value"><a [attr.href]="demande?.siteWeb" target="_blank">{{demande?.siteWeb}}</a></span></div>
+          </div>
+          <div fxFlex=25 fxLayout="column" class="box box-border">
+            <div fxLayout="row" class="item"><span fxFlex=50>Nationalité :</span><span class="item-value">{{demande?.qualificatifPays}} {{demande?.paysNaissance}}</span></div>
+            <div fxLayout="row" class="item"><span fxFlex=50>Rang ONIX :</span><span class="item-value">{{demande?.numeroContributeur}}</span></div>
+            <div fxLayout="row" class="item">&nbsp;</div>
+            <div fxLayout="row" class="item"><span fxFlex=50>Date de mort :</span><span class="item-value">{{demande?.dateMort  | date:'dd/MM/yyyy'}}</span></div>
+            <div fxLayout="row" class="item"><span fxFlex=50>Langue cible :</span><span class="item-value">{{demande?.langue}}</span></div>
+            <div fxLayout="row" class="item"><span fxFlex=50>ID Local :</span><span class="item-value">{{demande?.idInterneExpediteur}}<!--<md-icon color=primary>loupe</md-icon>--></span></div>
+          </div>
+          <div fxFlex=50 class="box box-border">
+            <div class="item">
+              <div fxLayout="row">
+                <span>Note biographique :</span>
+                <div class="spacer"></div>
+                <div *ngIf="demande?.noteBibliographique?.length && demande?.noteBibliographique?.length > 800">
+                  <md-icon *ngIf="!noteBibExpanded" (click)="noteBibExpanded = true" mdTooltip="Voir plus..." color=primary>keyboard_arrow_right</md-icon>
+                  <md-icon *ngIf="noteBibExpanded" (click)="noteBibExpanded = false" mdTooltip="Masquer" color=primary>keyboard_arrow_down</md-icon>
+                </div>
+              </div>
+              <br>
+              <span *ngIf="!noteBibExpanded" [innerHtml]="demande?.noteBibliographique | slice:0:800"></span>
+              <span *ngIf="noteBibExpanded" [innerHtml]="demande?.noteBibliographique"></span>
+            </div>
+          </div>
+        </div>
+      </md-card>
+      <md-card class="data">
+        <md-card-title>Données bibliographiques</md-card-title>
+        <div fxLayout="row" class="box-ct">
+          <div *ngIf="imgUrls" class="app-mr">
+            <img [src]=imgUrls.urlC1Vignette (click)="zoom()" mdTooltip="Zoomer"/>
+          </div>
+          <div fxFlex=60 fxLayout="column">
+            <div fxLayout="row" class="item"><span fxFlex=33>Titre principal :</span><span class="item-value">{{donneesBiblio?.titre}}</span></div>
+            <div fxLayout="row" class="item"><span fxFlex=33>Sous titre :</span><span class="item-value">{{donneesBiblio?.sousTitre}}</span></div>
+            <div fxLayout="row" class="item"><span fxFlex=33>Langue :</span><span class="item-value">{{donneesBiblio?.langue}}</span></div>
+            <div fxLayout="row" class="item"><span fxFlex=33>Titre original :</span><span class="item-value">{{donneesBiblio?.titreOriginal}}</span></div>
+            <div fxLayout="row" class="item"><span fxFlex=33>Langue originale :</span><span class="item-value">{{donneesBiblio?.langueOriginale}}</span></div>
+            <div fxLayout="row" class="item"><span fxFlex=33>Date de publication :</span><span class="item-value">{{donneesBiblio?.datePublication | date:'dd/MM/yyyy'}}</span></div>
+            <div fxLayout="row" class="item"><span fxFlex=33>EAN :</span><span class="item-value">{{donneesBiblio?.ean}}</span></div>
+            <div fxLayout="row" class="item"><span fxFlex=33>N° de déclaration :</span>
+              <span class="item-value">{{donneesBiblio?.idDecla}}</span>
+              <md-icon (click)="onOpenDeclaClick(donneesBiblio?.idDecla)" mdTooltip="Ouvrir la déclaration" color=primary>loupe</md-icon>
+              <md-icon (click)="onVoirOnixClick(donneesBiblio?.idDecla)" mdTooltip="Voir Onix" color=primary>remove_red_eye</md-icon>
+            </div>
+            <div fxLayout="row" class="item"><span fxFlex=33>Statut :</span><span class="item-value">{{donneesBiblio?.statutDecla}}</span></div>
+            <div fxLayout="row" class="item"><span fxFlex=33>NNB :</span><span class="item-value">{{donneesBiblio?.arkNotice}}</span></div>
+            <div fxLayout="row" class="item"><span fxFlex=33>Editeur :</span><span class="item-value">{{demande?.nomEditeur}}</span></div>
+            <div fxLayout="row" class="item"><span fxFlex=33>ID Editeur :</span><span class="item-value">{{donneesBiblio?.idDeposant}}</span></div>
+          </div>
+          <div fxFlex=40 fxLayout="column" class="box box-border">
+            <div class="item">
+              <div fxLayout="row">
+                <span>Résumé :</span>
+                <div class="spacer"></div>
+                <div *ngIf="donneesBiblio?.resume?.length && donneesBiblio?.resume?.length > 700">
+                  <md-icon *ngIf="!resumeExpanded" (click)="resumeExpanded = true" mdTooltip="Voir plus..." color=primary>keyboard_arrow_right</md-icon>
+                  <md-icon *ngIf="resumeExpanded" (click)="resumeExpanded = false" mdTooltip="Masquer" color=primary>keyboard_arrow_down</md-icon>
+                </div>
+              </div>
+              <br>
+              <span *ngIf="!resumeExpanded" [innerHtml]="donneesBiblio?.resume | slice:0:700"></span>
+              <span *ngIf="resumeExpanded" [innerHtml]="donneesBiblio?.resume"></span>
+            </div>
+          </div>
+        </div>
+      </md-card>
+    </div>
+    <div fxFlex=40 class="tabs">
+      <app-demande-tabs [demande]=demande (onDemandeChange)="onDemandeChange($event)"></app-demande-tabs>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,155 @@
+@import './_variables';
+
+@font-face {
+    font-family: 'corporate_sregular';
+    src: url(/assets/fonts/corporate/regular/corporates-regular-webfont.eot);
+    src: url(/assets/fonts/corporate/regular/corporates-regular-webfont.eot?#iefix) format('embedded-opentype'),
+         url(/assets/fonts/corporate/regular/corporates-regular-webfont.woff2) format('woff2'),
+         url(/assets/fonts/corporate/regular/corporates-regular-webfont.woff) format('woff'),
+         url(/assets/fonts/corporate/regular/corporates-regular-webfont.ttf) format('truetype'),
+         url(/assets/fonts/corporate/regular/corporates-regular-webfont.svg#corporate_sregular) format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'corporate_smedium';
+    src: url(/assets/fonts/corporate/medium/corporates-medium-webfont.eot);
+    src: url(/assets/fonts/corporate/medium/corporates-medium-webfont.eot?#iefix) format('embedded-opentype'),
+         url(/assets/fonts/corporate/medium/corporates-medium-webfont.woff2) format('woff2'),
+         url(/assets/fonts/corporate/medium/corporates-medium-webfont.woff) format('woff'),
+         url(/assets/fonts/corporate/medium/corporates-medium-webfont.ttf) format('truetype'),
+         url(/assets/fonts/corporate/medium/corporates-medium-webfont.svg#corporate_smedium) format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'corporate_slight';
+    src: url(/assets/fonts/corporate/light/corporates-light-webfont.eot);
+    src: url(/assets/fonts/corporate/light/corporates-light-webfont.eot?#iefix) format('embedded-opentype'),
+         url(/assets/fonts/corporate/light/corporates-light-webfont.woff2) format('woff2'),
+         url(/assets/fonts/corporate/light/corporates-light-webfont.woff) format('woff'),
+         url(/assets/fonts/corporate/light/corporates-light-webfont.ttf) format('truetype'),
+         url(/assets/fonts/corporate/light/corporates-light-webfont.svg#corporate_slight) format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'corporate_sbold';
+    src: url(/assets/fonts/corporate/bold/corporates-bold-webfont.eot);
+    src: url(/assets/fonts/corporate/bold/corporates-bold-webfont.eot?#iefix) format('embedded-opentype'),
+         url(/assets/fonts/corporate/bold/corporates-bold-webfont.woff2) format('woff2'),
+         url(/assets/fonts/corporate/bold/corporates-bold-webfont.woff) format('woff'),
+         url(/assets/fonts/corporate/bold/corporates-bold-webfont.ttf) format('truetype'),
+         url(/assets/fonts/corporate/bold/corporates-bold-webfont.svg#corporate_sbold) format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+html, body{
+	font-family: 'corporate_sregular';
+	padding: 0;
+	margin: 0;
+}
+
+h1{
+    padding: 0 0 0 20px;
+    font-size: 35px;
+    font-family: 'corporate_slight';
+	a, a:hover, a:focus{
+		color: white;
+		cursor: pointer;
+		text-decoration: none;
+	}
+}
+
+.route{
+	padding: 0 20px 0 20px;
+	background-color: #fafafa;
+}
+
+.route-title {
+    color: #525252;
+    font-size: 1.875em;
+    font-family: 'corporate_slight';
+    padding: 10px 0 10px 0;
+	margin: 0px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+$default-spacing: 20px;
+.app-pt {
+	padding-top: $default-spacing;
+}
+.app-pr {
+	padding-right: $default-spacing;
+}
+.app-pb {
+	padding-bottom: $default-spacing;
+}
+.app-pl {
+	padding-left: $default-spacing;
+}
+
+.app-mt {
+	margin-top: $default-spacing;
+}
+.app-mr {
+	margin-right: $default-spacing;
+}
+.app-mb {
+	margin-bottom: $default-spacing;
+}
+.app-ml {
+	margin-left: $default-spacing;
+}
+
+.chip-P1{
+    background-color: #f3174b !important;
+}
+.chip-P2{
+    background-color: #8d5fae !important;
+}
+.chip-P3{
+    background-color: #b74c75 !important;
+}
+.chip-P4{
+    background-color: #b16b4c !important;
+}
+.chip-P5{
+    background-color: #b14c4c !important;
+}
+.chip-primary{
+	background-color: $bnf-primary !important;
+}
+
+md-icon.app-icon{
+    font-size: 100px;
+    height: 100px;
+    width: 100px;
+}
+
+.ngx-datatable.material{
+  .datatable-header {
+    background-color: $bnf-primary;
+    span {
+      color: white !important;
+    }
+  }
+
+  .datatable-body-row {
+	  border-bottom: 4px solid #f2f5f6;
+  }
+}
+.demande-list-row-many-decla {
+	background-color: #e7eaee;
+}

@@ -1,0 +1,38 @@
+.texteNNA{
+    white-space: pre-wrap;
+    font-family: 'corporate_sregular';
+}
+
+.notice{
+    background-color: #fafafa;
+    padding: 10px;
+    md-toolbar{
+        background-color: transparent;
+    }
+    md-icon{
+        cursor: pointer;
+    }
+    .zone-code{
+        min-width: 35px;
+        margin-top: 15px;
+        font-family: 'corporate_smedium';
+    }
+    .souszone-code{
+        min-width: 20px;
+        margin-top: 15px;
+        color: #1cd158;
+        font-family: 'corporate_smedium';
+    }
+
+    .fieldRow{
+        .field{
+            margin: 5px;
+            background-color: white;   
+            height: 35px;
+        }
+    }
+    md-card-actions{
+        margin: 0;
+    }
+}
+

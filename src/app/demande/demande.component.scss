@@ -1,0 +1,81 @@
+.demande {
+
+    md-toolbar{
+        background-color: transparent;
+    }
+
+    md-icon, img{
+        cursor: pointer;
+    }
+
+    .navbar{
+
+        .title{
+            text-align: center;
+            color: #1e63be;
+            font-size: 30px;
+            font-family: 'corporate_smedium';
+        }
+    }
+
+    .datas {
+        margin: 0 10px 0 10px;
+        
+        .data{
+            margin: 0 0 15px 0;
+
+            md-card-title {
+                color: #1e63be;
+                font-size: 1.500em;
+                margin: 0;
+                margin-bottom: 12px;
+                font-family: 'corporate_slight';
+            }
+
+            .box-ct{
+                padding-bottom: 10px;
+            }
+
+            .box-border{
+                border-left: 1px solid #e7ecf2;
+                padding-left: 20px;
+            }
+
+            .box{   
+                padding-right: 10px;
+            }
+
+            .box-footer{
+                border-top: 3px dotted #d5dbe1;
+                padding-top: 10px;
+            }
+
+            .item {
+                font-family: 'corporate_slight';
+                margin: 5px 0;
+                .item-value {
+                    color: #4e8ee3;
+                    font-family: 'corporate_smedium'; 
+                    a, a:hover, a:focus {
+                        font-size: 16px;
+                        color: #4e8ee3;
+                    }
+                }
+            }
+
+            .nna-isni{
+                font-size: 22px;
+            }
+
+            .cancel-demande{
+                bottom: 30px;
+                width: 85%;
+                position: absolute;
+            }  
+        }
+    }
+        
+    .tabs{
+        margin: 0px 10px 15px 10px;
+    }
+}

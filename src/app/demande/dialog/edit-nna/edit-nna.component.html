@@ -1,0 +1,16 @@
+<h2 md-dialog-title>Editer NNA</h2>
+<md-dialog-content>
+  <form [formGroup]="nnaForm">
+    <md-input-container style="width: 400px;">
+      <input type="number" required mdInput name="nna" placeholder="NNA" formControlName="nna">
+      <md-hint align="end">{{nnaForm?.get('nna')?.value?.toString().length}} / 8</md-hint>
+    </md-input-container>
+  </form>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-raised-button md-dialog-close>Fermer</button>
+  <div class="spacer app-mr"></div>
+  <button (click)="onSupprimerClick()" [disabled]="!nna || !statut || statut.value !== '3000'" md-raised-button color="warn">Supprimer NNA</button>
+  <div class="app-mr"></div>
+  <button type="submit" md-raised-button color="primary" (click)="onValiderClick()" [disabled]="!nnaForm.valid">Valider</button>
+</md-dialog-actions>

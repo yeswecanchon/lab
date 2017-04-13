@@ -1,0 +1,65 @@
+md-sidenav-container {
+  min-height: 830px; 
+}
+
+md-sidenav{
+    width: 425px;
+    background-color: #fafafa;
+
+	.search-header {
+		md-icon {
+			cursor: pointer; 
+		}
+	}
+}
+
+.demande-list {
+
+	.demande-list-toolbar{
+
+		background-color: #fafafa;
+		padding-right: 0px;
+
+		a, a:hover, a:focus {
+			margin: 0 5px 0 5px;
+			font-size: 16px;
+			color: #4e8ee3;
+			font-family: 'corporate_smedium';
+			i {
+				margin: 0 0 5px 0;
+			}
+		}
+
+		button{
+			margin-right: 5px;
+		}
+
+		.demande-label{
+			font-size: 1.250em;
+			font-family: 'corporate_slight';
+			margin-right: 20px;
+			color: #1e63be;
+		}
+
+		.demande-list-param{
+			background-color: white;
+			padding: 20px;
+			
+			md-select{
+				width: 125px;
+			}
+		}
+	}
+
+	.demandes{
+		a, a:hover, a:focus{
+			color: #1e63be;
+			cursor: pointer;
+			text-decoration: underline;
+		}
+
+		span.author{
+			color: #1e63be;
+		}
+	}
+}
