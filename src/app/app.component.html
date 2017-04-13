@@ -1,30 +1,22 @@
 <div>
   <md-toolbar class="app-toolbar" color="primary">
-    <div class="logo-bnf-ct">
-      <img class="logo-bnf" src="assets/icon/logo-bnf.png" alt="BnF">
-    </div>
 
-    <h1 *ngIf="connected"><a routerLink="/demande-list" routerLinkActive="active">{{title}}</a></h1>
-    <h1 *ngIf="!connected">{{title}}</h1>
+    <h1><a routerLink="/home" routerLinkActive="active">{{title}}</a></h1>
 
     <span class="spacer"></span>
 
-    <button md-button [md-menu-trigger-for]="mainMenu">
-      <md-icon *ngIf="!connected">help_outline</md-icon>
-      <md-icon *ngIf="connected">account_circle</md-icon>
-      &nbsp;&nbsp;{{username}}
-    </button>
     <md-menu #mainMenu="mdMenu">
-      <button *ngIf="!connected" md-menu-item (click)="connect()">Connexion</button>
-      <button *ngIf="connected" md-menu-item routerLink="/profil">Mon profil</button>
-      <button *ngIf="connected" md-menu-item routerLink="/preferences">Mes préférences</button>
-      <button *ngIf="connected" md-menu-item (click)="disconnect()">Déconnexion</button>
+      <button md-menu-item routerLink="/profil">Mon profil</button>
+      <button md-menu-item routerLink="/preferences">Mes préférences</button>
     </md-menu>
 
-    <div *ngIf="connected">
-      <a md-raised-button color="primary" routerLink="/demande-list" routerLinkActive="active">Accueil</a>
-      <a md-raised-button color="primary" routerLink="/about" routerLinkActive="active">A propos</a>
-      <a md-raised-button color="primary" routerLink="/help" routerLinkActive="active">Aide</a>
+    <button md-button [md-menu-trigger-for]="mainMenu">
+      <md-icon >account_circle</md-icon>
+      &nbsp;&nbsp;{{username}}
+    </button>
+
+    <div>
+      <a md-raised-button color="primary" routerLink="/demande-list" routerLinkActive="active">ISNI</a>
       <a md-raised-button color="primary" routerLink="/contact" routerLinkActive="active">Contact</a>
     </div>
   </md-toolbar>

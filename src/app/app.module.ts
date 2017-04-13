@@ -14,7 +14,6 @@ import { AppRouting } from './app.routes'
 
 import { OrderByPipe, KeysPipe } from './_pipes'
 import { AppMaterialModule, HttpDefaultService, DialogComponent } from './_utils'
-import { AboutComponent } from './about'
 import { ContactComponent } from './contact'
 import { DemandeComponent, DemandeTabsComponent } from './demande'
 import {
@@ -30,7 +29,7 @@ import {
 import { DonneesCatalogueComponent, NoticeAutoriteComponent } from './demande/tabs'
 import { DemandeListComponent, DemandeListSearchComponent } from './demande-list'
 import { DeniedComponent } from './denied'
-import { HelpComponent } from './help'
+import { HomeComponent } from './home';
 import { LogoutComponent } from './logout'
 import { NotFoundComponent } from './not-found'
 import { PreferencesComponent } from './preferences'
@@ -38,6 +37,7 @@ import { ProfilComponent } from './profil'
 
 // TODO rem this when @angular/material update
 import { NgxMyDatePickerModule  } from 'ngx-mydatepicker';
+
 
 const APP_DEMANDE_LIST_COMPONENTS = [
   DemandeListSearchComponent
@@ -93,20 +93,20 @@ const APP_DIALOG_COMPONENTS = [
   ],
   declarations: [
     AppComponent,
-    AboutComponent,
     ContactComponent,
     DemandeComponent,
     ...APP_DEMANDE_COMPONENTS,
     DemandeListComponent,
     ...APP_DEMANDE_LIST_COMPONENTS,
     DeniedComponent,
-    HelpComponent,
+    HomeComponent,
     LogoutComponent,
     NotFoundComponent,
     PreferencesComponent,
     ProfilComponent,
     ...APP_UTILS_COMPONENTS,
-    ...APP_PIPES
+    ...APP_PIPES,
+    HomeComponent
   ],
   providers: [
     HttpDefaultService,
