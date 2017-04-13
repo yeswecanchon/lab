@@ -14,8 +14,8 @@ export class DemandeListSearchComponent implements OnInit {
 
   // TODO rem this when @angular/material update
   options: IMyOptions = {
-    dayLabels: {su: "Dim", mo: "Lun", tu: "Mar", we: "Mer", th: "Jeu", fr: "Ven", sa: "Sam"},
-    monthLabels: {1: "Jan", 2: "Fév", 3: "Mar", 4: "Avr", 5: "Mai", 6: "Juin", 7: "Juil", 8: "Aoû", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Déc"},
+    dayLabels: { su: "Dim", mo: "Lun", tu: "Mar", we: "Mer", th: "Jeu", fr: "Ven", sa: "Sam" },
+    monthLabels: { 1: "Jan", 2: "Fév", 3: "Mar", 4: "Avr", 5: "Mai", 6: "Juin", 7: "Juil", 8: "Aoû", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Déc" },
     dateFormat: "dd/mm/yyyy",
     firstDayOfWeek: "mo",
     sunHighlight: true,
@@ -31,7 +31,7 @@ export class DemandeListSearchComponent implements OnInit {
 
   ngOnInit() {
 
-    this.searchItems = this._appService.session.searchItems || {
+    this.searchItems = this._appService.session.search.searchItems || {
       priorites: { name: 'Priorité', values: [] },
       statuts: { name: 'Statut', values: [] },
       dates: { name: 'Date', values: [] },
@@ -41,7 +41,7 @@ export class DemandeListSearchComponent implements OnInit {
       editeur: { name: 'Editeur', values: [] }
     }
 
-    this.availableSearchItems = this._appService.session.availableSearchItems || {
+    this.availableSearchItems = this._appService.session.search.availableSearchItems || {
       priorites: [],
       statuts: [],
       dates: {
@@ -84,7 +84,7 @@ export class DemandeListSearchComponent implements OnInit {
   }
 
   private initPriorites() {
-    let priorites = this._appService.priorites
+    let priorites = this._appService.session.priorites
     for (let i in priorites) {
       this.availableSearchItems.priorites.push({
         text: priorites[i].libelle,
@@ -95,7 +95,7 @@ export class DemandeListSearchComponent implements OnInit {
   }
 
   private initStatuts() {
-    let statuts = this._appService.statuts
+    let statuts = this._appService.session.statuts
     for (let i in statuts) {
       this.availableSearchItems.statuts.push({
         text: statuts[i].libelle,
@@ -106,28 +106,33 @@ export class DemandeListSearchComponent implements OnInit {
   }
 
   search() {
-    this._appService.session.searchItems = this.searchItems
-    this._appService.session.availableSearchItems = this.availableSearchItems
-
+    this._appService.session.search = {
+      searchItems: this.searchItems,
+      availableSearchItems: this.availableSearchItems
+    }
     this.onSearch.emit(this.searchItems)
   }
 
   addSearchItem(searchItemName: string, item?: Object) {
 
     let searchChanged: boolean = true
+    let items = this.searchItems[searchItemName].values
 
+    // move chip-list item
     if (item instanceof Object) {
-      this.searchItems[searchItemName].values.push(item)
+      items.push(item)
       let index = this.availableSearchItems[searchItemName].indexOf(item)
       if (index > -1) this.availableSearchItems[searchItemName].splice(index, 1)
     }
-    else if (item) {
-      this.searchItems[searchItemName].values.push({ text: item, class: 'chip-primary', value: item })
-    }
+    // format value and add if not exists
     else {
-      let obj = this.availableSearchItems[searchItemName]
-      let text = this.formatValue(obj, searchItemName)
-      if (text) this.searchItems[searchItemName].values.push({ text: text, class: 'chip-primary', value: obj })
+      let _value = item || this.availableSearchItems[searchItemName]
+      let _text = item || this.formatValue(_value, searchItemName)
+      if (_text) {
+        let _item = { text: _text, class: 'chip-primary', value: _value }
+        let exists = items.filter(i => { return (i.value === _item.value) })
+        if (!exists.length) items.push(_item)
+      }
       else searchChanged = false
     }
 
@@ -137,14 +142,14 @@ export class DemandeListSearchComponent implements OnInit {
   removeSearchItem(searchItemName: string, item: Object, silent?: boolean) {
 
     let availables = this.availableSearchItems[searchItemName]
+    // reorder chip-lists
     if (availables instanceof Array) {
       availables.push(item)
-      availables.sort((o1, o2) => {
-        return (o1.value as string).localeCompare(o2.value as string)
-      })
+      availables.sort((o1, o2) => { return (o1.value as string).localeCompare(o2.value as string) })
     }
     let values = this.searchItems[searchItemName].values
     let index = values.indexOf(item)
+    // remove item
     if (index > -1) values.splice(index, 1)
 
     if (!silent) this.search()
@@ -173,11 +178,6 @@ export class DemandeListSearchComponent implements OnInit {
       this.removeSearchItem('statuts', this.searchItems.statuts.values[0], true)
     }
     let statuts = this.availableSearchItems.statuts
-    for (let i in statuts) {
-      if (statuts[i].value === value) {
-        this.addSearchItem('statuts', statuts[i])
-        break
-      }
-    }
+    this.addSearchItem('statuts', statuts.filter(statut => { return statut.value === value })[0])
   }
 }

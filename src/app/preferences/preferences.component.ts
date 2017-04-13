@@ -25,17 +25,17 @@ export class PreferencesComponent implements OnInit {
   ngOnInit() {
     this.properties = this._preferencesService.properties
 
-    if(!this._appService.priorites) this._appService.getPriorites().then(data => {
-      this._appService.priorites = data
-      this.initPriorite(this._appService.priorites)
+    if(!this._appService.session.priorites) this._appService.getPriorites().then(data => {
+      this._appService.session.priorites = data
+      this.initPriorite(this._appService.session.priorites)
     })
-    else this.initPriorite(this._appService.priorites)
+    else this.initPriorite(this._appService.session.priorites)
     
-    if(!this._appService.statuts) this._appService.getStatuts().then(data => {
-      this._appService.statuts = data
-      this.initStatuts(this._appService.statuts)
+    if(!this._appService.session.statuts) this._appService.getStatuts().then(data => {
+      this._appService.session.statuts = data
+      this.initStatuts(this._appService.session.statuts)
     })
-    else this.initStatuts(this._appService.statuts)
+    else this.initStatuts(this._appService.session.statuts)
   }
 
   private initPriorite(data){

@@ -1,5 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core'
 import { HttpDefaultService } from './_utils'
+import { Statut, Priorite, ShortDemande } from "./_types";
 import { AppConfig } from './app.config'
 
 @Injectable()
@@ -9,7 +10,7 @@ export class AppService {
 
   constructor(private _httpService: HttpDefaultService) { }
 
-  private _agent
+  private _agent: any
   set agent(data) {
     this._agent = data
   }
@@ -17,7 +18,7 @@ export class AppService {
     return this._agent
   }
 
-  private _conf
+  private _conf: any
   set conf(conf) {
     this._conf = conf
   }
@@ -25,23 +26,32 @@ export class AppService {
     return this._conf
   }
 
-  private _statuts
-  set statuts(statuts) {
-    this._statuts = statuts
+  private _session: {
+    appReady?: boolean,
+    priorites?: Priorite[],
+    statuts?: Statut[],
+    search: {
+      searchItems?: any,
+      availableSearchItems?: any
+    },
+    demandeList: {
+      shortDemande?: ShortDemande,
+      demandes?: ShortDemande[],
+      sort?: {
+        nom: string,
+        data: string[]
+      },
+      paging?: {
+        offset: number,
+        limit: number,
+        count: number
+      },
+      display?: string
+    }
+  } = {
+    search: {},
+    demandeList: {}
   }
-  get statuts() {
-    return this._statuts
-  }
-
-  private _priorites
-  set priorites(priorites) {
-    this._priorites = priorites
-  }
-  get priorites() {
-    return this._priorites
-  }
-
-  private _session: any = {}
   set session(session) {
     this._session = session
   }
@@ -49,7 +59,7 @@ export class AppService {
     return this._session
   }
 
-  connect(){
+  connect() {
     window.location.assign(AppConfig.URL_LOGIN(this.conf))
   }
 
@@ -72,5 +82,5 @@ export class AppService {
   getPriorites(): Promise<any> {
     return this._httpService.get(AppConfig.URL_PRIORITES)
   }
-  
+
 }

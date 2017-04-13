@@ -18,8 +18,6 @@ export class NoticeAutoriteComponent implements OnInit {
   @Input() demande: Demande
   @Output("onDemandeChange") onDemandeChange = new EventEmitter<Demande>();
 
-  @ViewChildren('input') inputs;
-
   notice
 
   constructor(
@@ -38,15 +36,16 @@ export class NoticeAutoriteComponent implements OnInit {
   }
 
   onPEPFrancaiseClick() {
-    this.inputs.toArray().find(el => { return el.nativeElement.getAttribute('id') === '000-0-1' }).nativeElement.value = "#"
-    this.inputs.toArray().find(el => { return el.nativeElement.getAttribute('id') === '008-0-1' }).nativeElement.value = "fr"
-    this.inputs.toArray().find(el => { return el.nativeElement.getAttribute('id') === '008-0-2' }).nativeElement.value = "fre"
+    
+    this.notice.zone.find(el => {return el.code === '000'}).souszone[0].concat[1].value = "#"
+    this.notice.zone.find(el => {return el.code === '008'}).souszone[0].concat[1].value = "fr"
+    this.notice.zone.find(el => {return el.code === '008'}).souszone[0].concat[2].value = "fre"
   }
 
   onPEPAutreClick() {
-    this.inputs.toArray().find(el => { return el.nativeElement.getAttribute('id') === '000-0-1' }).nativeElement.value = "2"
-    this.inputs.toArray().find(el => { return el.nativeElement.getAttribute('id') === '008-0-1' }).nativeElement.value = "xx"
-    this.inputs.toArray().find(el => { return el.nativeElement.getAttribute('id') === '008-0-2' }).nativeElement.value = "und"
+    this.notice.zone.find(el => {return el.code === '000'}).souszone[0].concat[1].value = "2"
+    this.notice.zone.find(el => {return el.code === '008'}).souszone[0].concat[1].value = "xx"
+    this.notice.zone.find(el => {return el.code === '008'}).souszone[0].concat[2].value = "und"
   }
 
   onCreerNoticeClick() {

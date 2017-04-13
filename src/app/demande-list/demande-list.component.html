@@ -14,7 +14,7 @@
     <div class="demande-list app-ml" fxLayout="column">
       <md-toolbar class="demande-list-toolbar">
         <span class="demande-label app-mr">{{paging.count}} demandes :</span>
-        <a md-raised-button *ngFor="let statut of appService.statuts" (click)="onStatutClick(statut.value)">
+        <a md-raised-button *ngFor="let statut of appService.session.statuts" (click)="onStatutClick(statut.value)">
           <i [ngClass]="'statut-min-' + statut.value"></i> {{totalStatuts[statut.value]}} {{statut.libelle}}
         </a>
       </md-toolbar>
@@ -36,7 +36,7 @@
           </md-select>
         </div>
         <div class="demande-list-param">
-          <md-select [(ngModel)]="display" (change)="onDisplayChange($event)" placeholder="Affichage">
+          <md-select [(ngModel)]="display" (change)="onDisplayChange()" placeholder="Affichage">
             <md-option *ngFor="let display of ['Complet', 'Simple']" [value]="display">{{ display }}</md-option>
           </md-select>
         </div>

@@ -29,7 +29,7 @@ export class DemandeListComponent implements OnInit {
   ) { }
 
   totalStatuts: any = {}
-  display: string = 'Complet'
+  display: string = this.appService.session.demandeList.display || 'Complet'
 
   demandes: ShortDemande[]
   columns: Object[]
@@ -39,13 +39,20 @@ export class DemandeListComponent implements OnInit {
     totalMessage: 'demandes trouvées',
     selectedMessage: null
   }
-  selected = []
+  selected: ShortDemande[] = []
   loadingIndicator: boolean = false
-  sort = {
+  sort: {
+    nom: string,
+    data: string[]
+  } = this.appService.session.demandeList.sort || {
     nom: 'id',
     data: ['desc']
   }
-  paging = {
+  paging: {
+    offset: number,
+    limit: number,
+    count: number
+  } = {
     offset: 0,
     limit: parseInt(this._preferencesService.properties.isni_demandeList_pageLength) || 10,
     count: 0
@@ -83,6 +90,7 @@ export class DemandeListComponent implements OnInit {
       }
     })
     this.initColumns = this.columns
+    this.onDisplayChange()
   }
 
   onStatutClick(value) {
@@ -93,30 +101,24 @@ export class DemandeListComponent implements OnInit {
     this.appService.eventEmitter.emit({ option: 'onNbDeclaClick', value: value })
   }
 
-  onActivate(event) {
-
-    if (event.event.ctrlKey) {
-      window.open(`${this.appService.conf.appUrl}/demande/${event.row.id}`, '_blank')
-    }
-    else {
-      if (event.column.checkboxable || event.column.prop === "nbDecla" || event.column.prop === "nna" || event.column.prop === "isni") return
-      else {
-        this.appService.session.shortDemande = event.row
-        this.appService.session.demandes = this.demandes.filter((shortDemande: ShortDemande) => shortDemande) // remove empty elements
-        this._router.navigate(['demande', event.row.id])
-      }
-    }
-  }
-
   onSearch(searchItems?) {
 
     this.loadingIndicator = true
+    
+    // if search has changed, save it and reset the offset
     if (searchItems) {
       this.searchItems = searchItems
       this.paging.offset = 0
     }
-    this.appService.session.sort = this.sort
-    this.appService.session.paging = this.paging
+
+    // Use session's paging if exists and destroy it
+    let paging = this.appService.session.demandeList.paging
+    if(paging){
+      this.paging.offset = paging.offset
+      this.paging.limit = paging.limit
+      delete this.appService.session.demandeList.paging
+    }
+
     this._demandeListService.getDemandes(this.sort, this.paging.offset, this.paging.limit, this.searchItems)
       .then(data => {
         this.demandes = data.demandes
@@ -127,13 +129,32 @@ export class DemandeListComponent implements OnInit {
       .catch(error => this.loadingIndicator = false)
   }
 
+  onActivate(event) {
+
+    if (event.event.ctrlKey) {
+      window.open(`${this.appService.conf.appUrl}/demande/${event.row.id}`, '_blank')
+    }
+    else {
+      if (event.column.checkboxable || event.column.prop === "nbDecla" || event.column.prop === "nna" || event.column.prop === "isni") return
+      else {
+        this.appService.session.demandeList = {
+          shortDemande: event.row,
+          demandes: this.demandes.filter((shortDemande: ShortDemande) => shortDemande), // remove empty elements
+          sort: this.sort,
+          paging: this.paging,
+          display: this.display
+        }
+        this._router.navigate(['demande', event.row.id])
+      }
+    }
+  }
+
   onSort(event) {
 
     let nom = event.sorts[0].prop
     let data = [event.sorts[0].dir]
 
     if (nom === 'dateCreation') nom = 'date'
-
     this.sort = {
       nom: nom,
       data: data
@@ -151,11 +172,12 @@ export class DemandeListComponent implements OnInit {
     this.onSearch()
   }
 
-  onDisplayChange(event) {
-    if (event.value === "Complet") {
+  onDisplayChange() {
+
+    if (this.display === "Complet") {
       this.columns = this.initColumns
     }
-    else if (event.value === "Simple") {
+    else if (this.display === "Simple") {
       this.columns = this.columns.filter((col: any) => {
         return col.name !== 'NNA' && col.name !== 'ISNI'
       })

@@ -49,15 +49,15 @@ export class AppComponent implements OnInit {
 
   initApp() {
 
-    if (!this._appService.priorites) {
+    if (!this._appService.session.priorites) {
       this._appService.getPriorites().then(data => {
-        this._appService.priorites = data
+        this._appService.session.priorites = data
         this._appService.eventEmitter.emit({ option: 'onPrioritesLoaded' })
       })
     }
-    if (!this._appService.statuts) {
+    if (!this._appService.session.statuts) {
       this._appService.getStatuts().then(data => {
-        this._appService.statuts = data
+        this._appService.session.statuts = data
         this._appService.eventEmitter.emit({ option: 'onStatutsLoaded' })
       })
     }

@@ -15,7 +15,7 @@
               <span *ngIf="souszone.code" class="souszone-code">{{souszone.code}}</span>
               <div *ngFor="let concat of souszone.concat; let j = index">
                 <md-input-container class="field">
-                  <input mdInput required #input id="{{zone.code}}-{{i}}-{{j}}" [(ngModel)]="notice.zone[h].souszone[i].concat[j].value" [disabled]="concat.disabled">
+                  <input mdInput required id="{{zone.code}}-{{i}}-{{j}}" [(ngModel)]="notice.zone[h].souszone[i].concat[j].value" [disabled]="concat.disabled">
                 </md-input-container>
               </div>
             </div>

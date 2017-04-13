@@ -49,11 +49,11 @@ export class DemandeComponent implements OnInit {
 
   ngOnInit() {
     this.fetch()
-    if(!this._appService.session.demandes) this.nextDemandeHidden = true
+    if(!this._appService.session.demandeList.demandes) this.nextDemandeHidden = true
   }
 
   fetch() {
-    let shortDemande: ShortDemande = this._appService.session.shortDemande
+    let shortDemande: ShortDemande = this._appService.session.demandeList.shortDemande
     if (shortDemande) {
       this._demandeService.getDemande(shortDemande.id).then((demande: Demande) => this.demande = demande)
       this._demandeService.getDonneesBiblio(shortDemande.idDecla).then((donneesBiblio: DonneesBiblio) => this.onDonneesBiblioLoaded(donneesBiblio))
@@ -84,11 +84,11 @@ export class DemandeComponent implements OnInit {
    */
   onNextDemandeClick(direction: boolean) {
 
-    if (this._appService.session.shortDemande) {
-      let i = this._appService.session.shortDemande.$$index
-      let dems: ShortDemande[] = this._appService.session.demandes
+    if (this._appService.session.demandeList.shortDemande) {
+      let i = (<any>this._appService.session.demandeList.shortDemande).$$index
+      let dems: ShortDemande[] = this._appService.session.demandeList.demandes
       let nextDemande: ShortDemande = direction ? (dems[i + 1] || dems[0]) : (dems[i - 1] || dems[dems.length - 1])
-      this._appService.session.shortDemande = nextDemande
+      this._appService.session.demandeList.shortDemande = nextDemande
       this._router.navigate(['demande', nextDemande.id]).then(() => this.fetch())
     }
   }
@@ -100,7 +100,7 @@ export class DemandeComponent implements OnInit {
 
   onEditStatutClick() {
     let dialogEditStatut = this._dialog.open(EditStatutComponent)
-    dialogEditStatut.componentInstance.statuts = this._appService.statuts
+    dialogEditStatut.componentInstance.statuts = this._appService.session.statuts
     dialogEditStatut.componentInstance.statut = this.demande.statut
     dialogEditStatut.afterClosed().subscribe((newStatut: Statut) => {
       if (newStatut) this._demandeService.updateStatut(this.demande.idDemande, newStatut).then((demande: Demande) => this.demande = demande)
@@ -109,7 +109,7 @@ export class DemandeComponent implements OnInit {
 
   onEditPrioriteClick() {
     let dialogEditPriorite = this._dialog.open(EditPrioriteComponent)
-    dialogEditPriorite.componentInstance.priorites = this._appService.priorites
+    dialogEditPriorite.componentInstance.priorites = this._appService.session.priorites
     dialogEditPriorite.componentInstance.priorite = this.demande.priorite
     dialogEditPriorite.afterClosed().subscribe((response: any) => {
       if (response) this._demandeService.updatePriorite(this.demande.idDemande, response).then((demande: Demande) => this.demande = demande)
@@ -141,7 +141,7 @@ export class DemandeComponent implements OnInit {
   }
 
   onRestoreDemandeClick() {
-    let statutEnCours = this._appService.statuts.filter((statut: Statut) => statut.value === '2000')[0]
+    let statutEnCours = this._appService.session.statuts.filter((statut: Statut) => statut.value === '2000')[0]
     this._demandeService.updateStatut(this.demande.idDemande, statutEnCours).then((demande: Demande) => this.demande = demande)
   }
 
