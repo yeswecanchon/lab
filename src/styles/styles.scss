@@ -54,13 +54,13 @@
 
 html, body{
 	font-family: 'corporate_sregular';
-	padding: 0;
-	margin: 0;
+    width:100%;
+    margin:0;
+    padding:0;
 }
 
 h1{
-    padding: 0 0 0 20px;
-    font-size: 35px;
+    font-size: 1em;
     font-family: 'corporate_slight';
 	a, a:hover, a:focus{
 		color: white;
@@ -76,7 +76,7 @@ h1{
 
 .route-title {
     color: #525252;
-    font-size: 1.875em;
+    font-size: 1.2em;
     font-family: 'corporate_slight';
     padding: 10px 0 10px 0;
 	margin: 0px;

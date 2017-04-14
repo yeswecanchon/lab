@@ -1,29 +1,26 @@
-<div>
-  <md-toolbar class="app-toolbar" color="primary">
+<header>
+  <nav role="navigation">
+    <md-toolbar class="app-toolbar" color="primary">
+      <h1><a routerLink="/home" routerLinkActive="active">{{title}}</a></h1>
+      <div class="spacer"></div>
+      <md-menu #mainMenu="mdMenu">
+        <button md-menu-item routerLink="/profil">Mon profil</button>
+        <button md-menu-item routerLink="/preferences">Mes préférences</button>
+        <button md-menu-item routerLink="/demande-list">ISNI</button>
+        <button md-menu-item routerLink="/contact">Contact</button>
+      </md-menu>
+      <button md-button [md-menu-trigger-for]="mainMenu">
+        <md-icon >account_circle</md-icon>
+        <span>{{username}}</span>
+      </button>
+    </md-toolbar>
+  </nav>
+</header>
 
-    <h1><a routerLink="/home" routerLinkActive="active">{{title}}</a></h1>
-
-    <span class="spacer"></span>
-
-    <md-menu #mainMenu="mdMenu">
-      <button md-menu-item routerLink="/profil">Mon profil</button>
-      <button md-menu-item routerLink="/preferences">Mes préférences</button>
-    </md-menu>
-
-    <button md-button [md-menu-trigger-for]="mainMenu">
-      <md-icon >account_circle</md-icon>
-      &nbsp;&nbsp;{{username}}
-    </button>
-
-    <div>
-      <a md-raised-button color="primary" routerLink="/demande-list" routerLinkActive="active">ISNI</a>
-      <a md-raised-button color="primary" routerLink="/contact" routerLinkActive="active">Contact</a>
-    </div>
-  </md-toolbar>
-
+<main role="main">
   <router-outlet></router-outlet>
-</div>
+</main>
 
-<span class="app-footer-action">
+<footer class="app-footer-action">
   <button color="primary" (click)="up()" md-fab><md-icon>arrow_upward</md-icon></button>
-</span>
+</footer>
