@@ -23,6 +23,7 @@ export class PreferencesComponent implements OnInit {
   constructor(private _preferencesService: PreferencesService, private _appService: AppService) { }
 
   ngOnInit() {
+    /*
     this.properties = this._preferencesService.properties
 
     if(!this._appService.session.priorites) this._appService.getPriorites().then(data => {
@@ -36,6 +37,7 @@ export class PreferencesComponent implements OnInit {
       this.initStatuts(this._appService.session.statuts)
     })
     else this.initStatuts(this._appService.session.statuts)
+    */
   }
 
   private initPriorite(data){

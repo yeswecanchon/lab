@@ -4,9 +4,6 @@
       <h1><a routerLink="/home" routerLinkActive="active">{{title}}</a></h1>
       <div class="spacer"></div>
       <md-menu #mainMenu="mdMenu">
-        <button md-menu-item routerLink="/profil">Mon profil</button>
-        <button md-menu-item routerLink="/preferences">Mes préférences</button>
-        <button md-menu-item routerLink="/demande-list">ISNI</button>
         <button md-menu-item routerLink="/contact">Contact</button>
       </md-menu>
       <button md-button [md-menu-trigger-for]="mainMenu">

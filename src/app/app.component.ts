@@ -12,8 +12,8 @@ import { AppService } from './app.service'
 })
 export class AppComponent implements OnInit {
 
-  title: string = "Monster's"
-  username: string = 'Romain MONSTERLET'
+  title: string = "Chez wam"
+  username: string = 'Bonjour, Insoumis'
 
   constructor(
     private _appService: AppService,
