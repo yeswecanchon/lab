@@ -14,8 +14,9 @@ import { ProfilComponent } from './profil'
 const APP_ROUTES: Routes = [
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    component: HomeComponent
+    //redirectTo: 'home',
+    //pathMatch: 'full'
   },
   {
     path: 'home',
