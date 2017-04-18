@@ -2,8 +2,9 @@
   <md-icon *ngIf="icon" [color]="icon.color" class="app-mr">{{icon.code}}</md-icon>
   <h2 *ngIf="title" md-dialog-title>{{title}}</h2>
 </div>
-<md-dialog-content [ngClass]="{'content': true, 'overflowHidden': overflowHidden}" *ngIf="content || text">
+<md-dialog-content [ngClass]="{'content': true, 'overflowHidden': overflowHidden}" *ngIf="content || text || url">
   <span [innerHtml]="content"></span>{{text}}
+  <iframe *ngIf="url" width='100%' [src]="sanitizer.bypassSecurityTrustResourceUrl(url)" frameborder="0" allowfullscreen></iframe>
 </md-dialog-content>
 <md-dialog-actions *ngIf="actions">
   <button *ngIf="actions.cancel" md-raised-button md-dialog-close>{{actions.cancel}}</button>

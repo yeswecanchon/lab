@@ -60,13 +60,17 @@ html, body{
 }
 
 h1{
-    font-size: 1em;
+    font-size: 1.3em;
     font-family: 'corporate_slight';
 	a, a:hover, a:focus{
 		color: white;
 		cursor: pointer;
 		text-decoration: none;
 	}
+}
+
+button, a{
+    margin-bottom: 10px !important;
 }
 
 .route{
@@ -76,7 +80,7 @@ h1{
 
 .route-title {
     color: #525252;
-    font-size: 1.2em;
+    font-size: 1.4em;
     font-family: 'corporate_slight';
     padding: 10px 0 10px 0;
 	margin: 0px;
@@ -133,9 +137,9 @@ $default-spacing: 20px;
 }
 
 md-icon.app-icon{
-    font-size: 100px;
-    height: 100px;
-    width: 100px;
+    font-size: 200px;
+    height: 200px;
+    width: 200px;
 }
 
 .ngx-datatable.material{

@@ -1,5 +1,6 @@
 import { Component, OnInit, Optional } from '@angular/core'
 import { MdDialogRef } from '@angular/material'
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dialog',
@@ -13,10 +14,12 @@ export class DialogComponent implements OnInit {
   content: string
   overflowHidden: boolean = false
   text: string
+  url: string
   actions: Object
 
   constructor(
-    @Optional() public dialog: MdDialogRef<DialogComponent>
+    @Optional() public dialog: MdDialogRef<DialogComponent>,
+    public sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {

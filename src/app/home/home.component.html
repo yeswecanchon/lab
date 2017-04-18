@@ -1,13 +1,47 @@
 <div fxLayout="row" fxLayoutAlign="center" class="route-title">
-  <div fxLayout="column" fxLayoutAlign="space-around center">
-    <md-icon class="app-icon" color="primary">tag_faces</md-icon>
-    <div>Welcome home. You monster.</div>
-    <div>Le dimanche 23 Avril prochain, <strong>votez Stanchon</strong>!</div>
-    <div>Indécis ? Par ici :</div>
-    <a md-raised-button class="app-mt" href="https://jlm2017.fr/category/actualites/pas-de-question-sans-reponse/">#JLMDesintox</a>
-    <div>Insoumis, prend un second bulletin Stanchon dans ta poche lors du 1er tour</div>
-    <div>Il nous servira de vote protestataire au 2nd tour, dans l'éventualité où il ne resterait plus que des têtes d'enclumes</div>
-    <iframe class="app-mt" width="300" src="https://www.youtube.com/embed/l4cWSSUO3IY" frameborder="0" allowfullscreen></iframe>
-    <iframe class="app-mt" width="300" src="https://www.youtube.com/embed/VprwgoVdBAE" frameborder="0" allowfullscreen></iframe>
+  <div fxLayout="column" fxLayoutAlign="space-around center" class="app-mb">
+    <md-icon class="app-icon" color="accent">timer</md-icon>
+    <div>Y'a alerte mes amis !</div>
+    <div *ngIf="time >= 0" fxLayout="column" fxLayoutAlign="space-around center">
+      <div>Dans <strong>{{time}}</strong> jours</div>
+      <div>(dimanche 23 Avril 2017)</div>
+      <div>aura lieu le</div>
+      <div>1er tour de l'élection présidentielle,</div>
+    </div>
+    <div *ngIf="time === 0" fxLayout="column" fxLayoutAlign="space-around center">
+      <div>C'est aujourd'hui</div>
+    </div>
+    <div class="app-mt app-mb"><strong>Il faut aller voter Mélenchon !</strong></div>
+    <div>- Non car... / Oui, mais...</div>
+    <div class="app-mt app-mb">
+      <a md-raised-button color="primary" class="app-mt" target="_blank" href="https://jlm2017.fr/category/actualites/pas-de-question-sans-reponse/">#JLMDesintox</a>
+    </div>
+    <div>- Indécis ? Abstentionniste ? Par ici :</div>
+    <div fxLayout="column" fxLayoutAlign="space-around center" class="app-mt app-mb">
+      <a md-raised-button color="primary" class="app-mt" target="_blank" href="https://avenirencommun.fr/avenir-en-commun/">Le programme de L'Avenir en commun</a>
+      <a md-raised-button color="primary" class="app-mt" target="_blank" href="https://melenshack.fr/">MélenShack</a>
+    </div>
+    <div>- Non non, je compte voter pour</div>
+    <div class="app-mt app-mb" fxLayout="column" fxLayoutAlign="space-between stretch">
+      <button (click)="onClick('Le Pen')" md-raised-button>Le Pen</button>
+      <button (click)="onClick('Fillon')" md-raised-button>Fillon</button>
+      <button (click)="onClick('Macron')" md-raised-button>Macron</button>
+      <button (click)="onClick('Hamon')" md-raised-button>Hamon</button>
+      <button (click)="onClick('Poutou')" [style.background]="poutou?.background" [style.color]="poutou?.color"  md-raised-button>{{poutou?.text || 'Poutou'}}</button>
+      <button (click)="onClick('Arthaud')" [style.background]="arthaud?.background" [style.color]="arthaud?.color" md-raised-button>{{arthaud?.text || 'Arthaud'}}</button>
+      <button (click)="onClick('Dupont Aignan')" md-raised-button>Dupont Aignan</button>
+      <button (click)="onClick('Asselineau')" md-raised-button>Asselineau</button>
+      <button (click)="onClick('Lasalle')" md-raised-button>Lasalle</button>
+      <button md-raised-button [disabled]=true>Cheminade</button>
+    </div>
+
+    <div class="app-mt app-mb">- Oui, je vais voter pour</div>
+    <button (click)="onClick('Mélenchon')" #stanchon md-raised-button color="accent">Mélenchon</button>
+    <!--
+    <div>Dans ce cas je ne peux que t'inviter à prendre un second bulletin Stanchon dans ta poche lors du 1er tour</div>
+    <div>Il nous servira de vote protestataire au 2nd tour dans l'éventualité où il ne resterait plus que des têtes d'enclumes</div>
+    <iframe class="app-mt" src="https://www.youtube.com/embed/l4cWSSUO3IY" frameborder="0" allowfullscreen></iframe>
+    <iframe class="app-mt" src="https://www.youtube.com/embed/VprwgoVdBAE" frameborder="0" allowfullscreen></iframe>
+    -->
   </div>
 </div>
