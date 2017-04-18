@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit {
       case "Mélenchon":
         content = `
         <div fxLayout="column" fxLayoutAlign="space-around center">
-          <h2>Insoumise, Insoumis, il ne nous reste que très peu de temps pour convaincre. Echangez au maximum, partagez, faites bouger la ligne ! Le risque est réel, ne les laissez pas le cirque continuer. Votez et faites voter votre entourage !</h2>
+          <h2>Insoumise, Insoumis, il ne nous reste que très peu de temps pour convaincre. Echangez au maximum, partagez, faites bouger la ligne ! Le risque est réel, ne laissez pas le cirque continuer. Votez et faites voter votre entourage !</h2>
           <img width='100%' src='./assets/img/stanchon.png' />
         </div>
         `
