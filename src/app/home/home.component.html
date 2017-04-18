@@ -11,33 +11,46 @@
     <div *ngIf="time === 0" fxLayout="column" fxLayoutAlign="space-around center">
       <div>C'est aujourd'hui</div>
     </div>
-    <div class="app-mt app-mb"><strong>Il faut aller voter Mélenchon !</strong></div>
-    <div>- Non car... / Oui, mais...</div>
-    <div class="app-mt app-mb">
-      <a md-raised-button color="primary" class="app-mt" target="_blank" href="https://jlm2017.fr/category/actualites/pas-de-question-sans-reponse/">#JLMDesintox</a>
-    </div>
-    <div>- Indécis ? Abstentionniste ? Par ici :</div>
+    <div class="app-mb"><strong>Il faut aller voter Mélenchon !</strong></div>
+    <div class="underline">- Indécis ? Abstentionniste ?</div>
     <div fxLayout="column" fxLayoutAlign="space-around center" class="app-mt app-mb">
       <a md-raised-button color="primary" target="_blank" href="https://avenirencommun.fr/avenir-en-commun/">Le programme de L'Avenir en commun</a>
       <a md-raised-button color="primary" target="_blank" href="http://comparateur-programme.fr/">Le comparateur de programmes</a>
       <a md-raised-button color="primary" target="_blank" href="https://melenshack.fr/">MélenShack</a>
     </div>
-    <div>- Non non, je compte voter pour</div>
-    <div class="app-mt app-mb" fxLayout="column" fxLayoutAlign="space-between stretch">
+    <div fxLayout="column" fxLayoutAlign="space-around center" class="app-mb">
+      <div class="underline">- Ce qui me gêne dans</div>
+      <div class="underline"> son programme c'est...</div>
+    </div>
+    <div>
+      <a md-raised-button color="primary" target="_blank" href="https://jlm2017.fr/category/actualites/pas-de-question-sans-reponse/">#JLMDesintox</a>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="space-around center" class="app-mt app-mb">
+      <div class="underline">- Non non, je compte voter</div>
+      <div class="underline">pour un autre</div>
+    </div>
+    <div class="app-mb" fxLayout="column" fxLayoutAlign="space-between stretch">
       <button (click)="onClick('Le Pen')" md-raised-button>Le Pen</button>
       <button (click)="onClick('Fillon')" md-raised-button>Fillon</button>
       <button (click)="onClick('Macron')" md-raised-button>Macron</button>
       <button (click)="onClick('Hamon')" md-raised-button>Hamon</button>
-      <button (click)="onClick('Poutou')" [style.background]="poutou?.background" [style.color]="poutou?.color"  md-raised-button>{{poutou?.text || 'Poutou'}}</button>
+      <button (click)="onClick('Poutou')" [style.background]="poutou?.background" [style.color]="poutou?.color" md-raised-button>{{poutou?.text || 'Poutou'}}</button>
       <button (click)="onClick('Arthaud')" [style.background]="arthaud?.background" [style.color]="arthaud?.color" md-raised-button>{{arthaud?.text || 'Arthaud'}}</button>
       <button (click)="onClick('Dupont Aignan')" md-raised-button>Dupont Aignan</button>
       <button (click)="onClick('Asselineau')" md-raised-button>Asselineau</button>
       <button (click)="onClick('Lasalle')" md-raised-button>Lasalle</button>
-      <button md-raised-button [disabled]=true>Cheminade</button>
+      <button *ngIf="!hideCheminade" md-raised-button (click)="hideCheminade = true">Cheminade</button>
     </div>
 
-    <div class="app-mt app-mb">- Oui, je vais voter pour</div>
-    <button (click)="onClick('Mélenchon')" #stanchon md-raised-button color="accent">Mélenchon</button>
+    <div fxLayout="column" fxLayoutAlign="space-around center" class="app-mb">
+      <div class="underline">- Oui, mais je ne peux pas me rentre</div>
+      <div class="underline"> à mon bureau de vote</div>
+    </div>
+    <a md-raised-button color="primary" target="_blank" href="https://procurations.jlm2017.fr/">Faire procuration</a>
+
+    <div class="app-mt app-mb underline">- Oui, je vais voter pour lui</div>
+    <button (click)="onClick('Mélenchon')" md-raised-button color="accent">Mélenchon</button>
+
     <!--
     <div>Dans ce cas je ne peux que t'inviter à prendre un second bulletin Stanchon dans ta poche lors du 1er tour</div>
     <div>Il nous servira de vote protestataire au 2nd tour dans l'éventualité où il ne resterait plus que des têtes d'enclumes</div>

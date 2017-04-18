@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   time
   poutou: any = {}
   arthaud: any = {}
-  @ViewChild('stanchon') stanchon: MdButton
+  hideCheminade: boolean = false
 
   constructor(private _dialog: MdDialog, private _sanitizer: DomSanitizer) { }
 
@@ -56,16 +56,16 @@ export class HomeComponent implements OnInit {
         video = 'NIH4s3MPSgc'
         break
       case "Asselineau":
-        window.open('https://imgflip.com/memegenerator/Jackie-Chan-WTF', '_blank')
-        return
+        content = `<img width='100%' src='./assets/img/chan.png' />`
+        break
       case "Lasalle":
-        window.open('https://imgflip.com/memegenerator/100582/Are-you-fucking-kidding-me', '_blank')
-        return
+        content = `<img width='100%' src='./assets/img/kidding.png' />`
+        break
       case "Mélenchon":
         content = `
         <div fxLayout="column" fxLayoutAlign="space-around center">
+          <h2>Insoumise, Insoumis, il ne nous reste que très peu de temps pour convaincre. Echangez au maximum, partagez, faites bouger la ligne ! Le risque est réel, ne les laissez pas le cirque continuer. Votez et faites voter votre entourage !</h2>
           <img width='100%' src='./assets/img/stanchon.png' />
-          <h2>Insoumise, Insoumis, il ne nous reste que très peu de temps pour convaincre. Echangez au maximum, partagez, faites bouger la ligne ! Le risque est réel, ne les laissez pas continuer le cirque. Votez et faites voter votre entourage !</h2>
         </div>
         `
         break
